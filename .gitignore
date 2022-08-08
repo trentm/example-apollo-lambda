@@ -3,3 +3,4 @@
 /.env*
 /.serverless
 /NOTES.md
+.DS_Store
