@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "local-invoke": "serverless invoke local -f graphql -p query.json",
-    "deploy": "serverless deploy"
+    "invoke": "serverless invoke -f graphql -p query.json",
+    "deploy": "serverless deploy",
+    "obliterate": "serverless remove && rm -rf .serverless/"
   },
   "dependencies": {
     "apollo-server-lambda": "^3.10.0",

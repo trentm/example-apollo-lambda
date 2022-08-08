@@ -1,13 +1,22 @@
-# serverless.yml
-
-service: apollo-lambda
+service: trentm-example-apollo-lambda2
+frameworkVersion: ^3.21.0
+useDotenv: true
 provider:
   name: aws
   runtime: nodejs14.x
+  region: us-east-1
+  environment:
+    NODE_OPTIONS: "-r elastic-apm-node/start"
+    ELASTIC_APM_LAMBDA_APM_SERVER: ${env:ELASTIC_APM_LAMBDA_APM_SERVER, ''}
+    ELASTIC_APM_SECRET_TOKEN: ${env:ELASTIC_APM_SECRET_TOKEN, ''}
+    ELASTIC_APM_LOG_LEVEL: trace
 functions:
   graphql:
     # this is formatted as <FILENAME>.<HANDLER>
     handler: graphql.graphqlHandler
+    layers:
+      - arn:aws:lambda:us-east-1:267093732750:layer:elastic-apm-extension-ver-1-0-2-x86_64:1
+      - arn:aws:lambda:us-east-1:267093732750:layer:elastic-apm-node-ver-3-37-0:1
     events:
     - http:
         path: /
